@@ -1,6 +1,5 @@
 package com.github.vp.config;
 
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
