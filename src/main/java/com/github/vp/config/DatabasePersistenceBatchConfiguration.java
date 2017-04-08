@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 @Configuration
 @EnableAutoConfiguration
 @ConditionalOnProperty(name = "inmemory.batch.repository", havingValue = "false")
+@PropertySource("classpath:/spring-batch-database.properties")
 public class DatabasePersistenceBatchConfiguration {
 
     @Bean
