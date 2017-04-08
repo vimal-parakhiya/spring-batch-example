@@ -1,4 +1,4 @@
-package com.thoughtworks;
+package com.github.vp;
 
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
@@ -21,7 +21,7 @@ public class IntegerItemReader implements ItemReader<Integer> {
 
     public Integer read() {
         if(count.get() < maxCount) {
-            return count.incrementAndGet();
+            return count.getAndIncrement();
         }
         return null;
     }

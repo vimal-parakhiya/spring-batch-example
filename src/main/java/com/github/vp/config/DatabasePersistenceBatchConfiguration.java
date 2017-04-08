@@ -1,4 +1,4 @@
-package com.thoughtworks.config;
+package com.github.vp.config;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -13,7 +13,6 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
  * Created by vimalpar on 08/04/17.
  */
 @Configuration
-@EnableBatchProcessing
 @EnableAutoConfiguration
 @ConditionalOnProperty(name = "inmemory.batch.repository", havingValue = "false")
 public class DatabasePersistenceBatchConfiguration {

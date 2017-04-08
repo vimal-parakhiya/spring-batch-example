@@ -1,4 +1,4 @@
-package com.thoughtworks;
+package com.github.vp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

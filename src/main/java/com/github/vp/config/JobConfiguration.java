@@ -1,14 +1,13 @@
-package com.thoughtworks.config;
+package com.github.vp.config;
 
-import com.thoughtworks.IntegerItemWriter;
-import com.thoughtworks.IntegerItemProcessor;
-import com.thoughtworks.IntegerItemReader;
+import com.github.vp.IntegerItemReader;
+import com.github.vp.IntegerItemWriter;
+import com.github.vp.IntegerItemProcessor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,15 +16,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class JobConfiguration {
-    @Autowired
-    private JobBuilderFactory jobBuilderFactory;
-
-    @Autowired
-    private StepBuilderFactory stepBuilderFactory;
-
-
     @Bean
-    public Job sampleJob(Step step) {
+    public Job sampleJob(JobBuilderFactory jobBuilderFactory, Step step) {
         return jobBuilderFactory.get("sample-batch")
                 .incrementer(new RunIdIncrementer())
                 .flow(step)
@@ -34,12 +26,30 @@ public class JobConfiguration {
     }
 
     @Bean
-    public Step step() {
+    public Step step(StepBuilderFactory stepBuilderFactory,
+                     IntegerItemReader reader,
+                     IntegerItemProcessor processor,
+                     IntegerItemWriter writer) {
         return stepBuilderFactory.get("step1")
                 .<Integer, Integer>chunk(25)
-                .reader(new IntegerItemReader())
-                .processor(new IntegerItemProcessor())
-                .writer(new IntegerItemWriter())
+                .reader(reader)
+                .processor(processor)
+                .writer(writer)
                 .build();
+    }
+
+    @Bean
+    public IntegerItemReader reader() {
+        return new IntegerItemReader(100);
+    }
+
+    @Bean
+    public IntegerItemProcessor processor() {
+        return new IntegerItemProcessor();
+    }
+
+    @Bean
+    public IntegerItemWriter writer() {
+        return new IntegerItemWriter();
     }
 }
